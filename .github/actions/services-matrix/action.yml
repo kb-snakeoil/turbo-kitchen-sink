@@ -1,0 +1,16 @@
+name: 'Service matrix'
+description: 'Builds a matrix of all the services'
+outputs:
+  matrix:
+    description: 'matrix of services and their docker file'
+    value: ${{ steps.matrix.outputs.matrix }}
+runs:
+  using: 'composite'
+  steps:
+    - name: matrix
+      id: matrix
+      shell: bash
+      run: |
+        api='{ "name": "api", "dockerfile": "tooling/docker/nestjs/Dockerfile" }'
+        storefront='{ "name": "storefront", "dockerfile": "tooling/docker/nextjs/Dockerfile" }'
+        echo "matrix={\"include\":[$api, $storefront]}" >> $GITHUB_OUTPUT

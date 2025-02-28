@@ -1,0 +1,10 @@
+.git
+.gitignore
+.github/
+.next/
+.turbo/
+.vscode/
+Dockerfile
+node_modules
+npm-debug.log
+dist

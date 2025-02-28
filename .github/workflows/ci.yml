@@ -1,0 +1,89 @@
+name: CI
+
+# This is one CI workflow that should be extented if more tests are needed.
+# Right now it validates terraform, but more parrallel jobs can be added.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: 'ci'
+
+jobs:
+  workflow-lint:
+    name: Workflow checks
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.7.4
+        shell: bash
+
+      - name: Check lint workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color -shellcheck=
+        shell: bash
+
+  node-tests:
+    # https://open.spotify.com/track/3nbCteOIYqNSpbxRdZod1X?si=ba5ce60f62dd4137
+    name: "It's Turbo time!"
+    runs-on: ubuntu-24.04
+
+    env:
+      # We don't want to send telemetry data to Turbo.
+      # See: https://turbo.build/repo/docs/telemetry#how-do-i-opt-out
+      TURBO_TELEMETRY_DISABLED: 1
+
+      # See: https://github.com/vercel/turborepo/issues/9320#issuecomment-2499219314
+      #
+      # This will set TURBO_SCM_BASE to:
+      # - the HEAD commit of the branch you’re merging into if it's a PR
+      # - the HEAD commit SHA on your target branch before the merge for other contexts (i.e. on push)
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # This action reads the package.json and installs the correct version of pnpm.
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      # See: https://turbo.build/repo/docs/guides/ci-vendors/github-actions#caching-with-github-actionscache
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # We do not need an affected Github Action step, Turbo itself will take care of it.
+      # See: https://turbo.build/repo/docs/crafting-your-repository/constructing-ci#using---affected-in-github-actions
+      #
+      - name: Run tests
+        run: |
+          pnpm run test:affected

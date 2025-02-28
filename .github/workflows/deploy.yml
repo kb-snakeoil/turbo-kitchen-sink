@@ -1,0 +1,177 @@
+name: Deploy
+
+on:
+  push:
+    branches: ['main']
+
+concurrency:
+  group: ${{ github.workflow }}
+
+env:
+  REGISTRY: ghcr.io
+  DOCKER_BUILD_SUMMARY: true
+  NODE_VERSION: 22
+  DOCKER_TAG: deploy-run-${{ github.run_number }}
+
+jobs:
+  prebuild:
+    name: 'Pre-build'
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: 'actions/checkout@v4'
+      - uses: ./.github/actions/services-matrix
+        id: 'matrix'
+
+  build-docker:
+    needs: prebuild
+    name: 'Build Docker: ${{ matrix.name }}'
+    strategy:
+      matrix: ${{ fromJSON(needs.prebuild.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: '${{ fromJSON(steps.meta.outputs.json).tags[0] }}'
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Github container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      # This action makes sure that we keep the exact same names and tags
+      # as the source ones, we just prepend our own repository as a namespace
+      # before it.
+      #
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      # Push the image to the registry
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: '.'
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64
+          build-args: |
+            APP_NAME=${{ matrix.name }}
+            NODE_VERSION=${{ env.NODE_VERSION }}
+          push: ${{ github.event_name != 'pull_request' }}
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha,key=${{ matrix.name }}
+          cache-to: type=gha,mode=max,key=${{ matrix.name }}
+
+  build-dummy:
+    needs: prebuild
+    name: 'Build dummy'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build dummy
+        run: |
+          echo "Dummy"
+
+  deploy-staging-docker:
+    name: 'Deploy Docker staging: ${{ matrix.name }}'
+    runs-on: ubuntu-24.04
+    needs: [prebuild, build-docker]
+    strategy:
+      matrix: ${{ fromJSON(needs.prebuild.outputs.matrix) }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Tags ${{ needs.build-docker.outputs.tag }}"
+
+  deploy-staging-dummy:
+    name: 'Deploy dummy staging'
+    runs-on: ubuntu-24.04
+    needs: [prebuild, build-dummy]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Deploying dummy to staging"
+
+  smoketest-staging:
+    name: Smoketest staging
+    runs-on: ubuntu-24.04
+    needs: [deploy-staging-docker, deploy-staging-dummy]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Smoke test
+        run: |
+          echo "Smoke test"
+
+  deploy-production-docker:
+    name: 'Deploy Docker production: ${{ matrix.name }}'
+    runs-on: ubuntu-24.04
+    needs: [prebuild, build-docker, smoketest-staging]
+    strategy:
+      matrix: ${{ fromJSON(needs.prebuild.outputs.matrix) }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Tags ${{ needs.build-docker.outputs.tag }}"
+
+  deploy-production-dummy:
+    name: 'Deploy dummy production'
+    runs-on: ubuntu-24.04
+    needs: [prebuild, smoketest-staging]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Deploying dummy to production"
+
+  smoketest-production:
+    name: Smoketest production
+    runs-on: ubuntu-24.04
+    needs: [deploy-production-docker, deploy-production-dummy]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Smoke test
+        run: |
+          echo "Smoke test production"
