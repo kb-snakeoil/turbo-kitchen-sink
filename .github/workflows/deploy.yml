@@ -7,6 +7,10 @@ on:
 concurrency:
   group: ${{ github.workflow }}
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   REGISTRY: ghcr.io
   DOCKER_BUILD_SUMMARY: true
