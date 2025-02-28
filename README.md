@@ -1,5 +1,3 @@
-[![CI](https://github.com/normative-io/turbo-example-monorepo/actions/workflows/ci.yml/badge.svg)](https://github.com/normative-io/turbo-example-monorepo/actions/workflows/ci.yml)
-
 # Turborepo kitchen sink starter
 
 This Turborepo starter is maintained by the Turborepo core team.

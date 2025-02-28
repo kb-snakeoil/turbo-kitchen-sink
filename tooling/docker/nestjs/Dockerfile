@@ -1,7 +1,7 @@
 # Optimized for running on CI/CD
 
 ARG NODE_VERSION=22
-FROM ghcr.io/normative-io/platform-docker-images/node:${NODE_VERSION}-builder AS base
+FROM node:${NODE_VERSION}-bookworm-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -17,7 +17,7 @@ RUN pnpm run build --filter=${APP_NAME}
 RUN pnpm deploy --filter=${APP_NAME} --prod /prod/${APP_NAME}
 
 
-FROM ghcr.io/normative-io/platform-docker-images/node:${NODE_VERSION}-runner AS runner
+FROM node:${NODE_VERSION}-alpine AS runner
 ARG APP_NAME
 WORKDIR /app
 COPY --from=build /prod/${APP_NAME} ./
