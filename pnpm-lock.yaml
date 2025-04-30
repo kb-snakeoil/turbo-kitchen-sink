@@ -39,7 +39,7 @@ importers:
         version: 18.3.20
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.6(@types/react@18.3.20)
+        version: 18.3.7(@types/react@18.3.20)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.4.1(vite@6.3.4(@types/node@22.15.3)(jiti@1.21.7)(yaml@2.7.1))
@@ -149,7 +149,7 @@ importers:
         version: 18.3.20
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.6(@types/react@18.3.20)
+        version: 18.3.7(@types/react@18.3.20)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.22.0
         version: 8.31.1(@typescript-eslint/parser@8.31.1(eslint@9.25.1(jiti@1.21.7))(typescript@5.8.3))(eslint@9.25.1(jiti@1.21.7))(typescript@5.8.3)
@@ -207,7 +207,7 @@ importers:
         version: 18.3.20
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.6(@types/react@18.3.20)
+        version: 18.3.7(@types/react@18.3.20)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -315,7 +315,7 @@ importers:
         version: 18.3.20
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.6(@types/react@18.3.20)
+        version: 18.3.7(@types/react@18.3.20)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.15.3)
@@ -1908,8 +1908,8 @@ packages:
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
 
-  '@types/react-dom@18.3.6':
-    resolution: {integrity: sha512-nf22//wEbKXusP6E9pfOCDwFdHAX4u172eaJI4YkDRQEZiorm6KfYnSC2SWLDMVWUOWPERmJnN0ujeAfTBLvrw==}
+  '@types/react-dom@18.3.7':
+    resolution: {integrity: sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==}
     peerDependencies:
       '@types/react': ^18.0.0
 
@@ -7038,7 +7038,7 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@18.3.6(@types/react@18.3.20)':
+  '@types/react-dom@18.3.7(@types/react@18.3.20)':
     dependencies:
       '@types/react': 18.3.20
 
