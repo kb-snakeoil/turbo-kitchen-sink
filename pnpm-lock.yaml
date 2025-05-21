@@ -36,10 +36,10 @@ importers:
         version: link:../../packages/config-typescript
       '@types/react':
         specifier: ^18.3.18
-        version: 18.3.21
+        version: 18.3.22
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.7(@types/react@18.3.21)
+        version: 18.3.7(@types/react@18.3.22)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.4.1(vite@6.3.5(@types/node@22.15.21)(jiti@1.21.7)(yaml@2.7.1))
@@ -146,10 +146,10 @@ importers:
         version: 2.16.7(@remix-run/react@2.16.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(@types/node@22.15.21)(jiti@1.21.7)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.21)(jiti@1.21.7)(yaml@2.7.1))(yaml@2.7.1)
       '@types/react':
         specifier: ^18.3.18
-        version: 18.3.21
+        version: 18.3.22
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.7(@types/react@18.3.21)
+        version: 18.3.7(@types/react@18.3.22)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.22.0
         version: 8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@1.21.7))(typescript@5.8.3))(eslint@9.27.0(jiti@1.21.7))(typescript@5.8.3)
@@ -204,10 +204,10 @@ importers:
         version: 22.15.21
       '@types/react':
         specifier: ^18.3.18
-        version: 18.3.21
+        version: 18.3.22
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.7(@types/react@18.3.21)
+        version: 18.3.7(@types/react@18.3.22)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -312,10 +312,10 @@ importers:
         version: 22.15.21
       '@types/react':
         specifier: ^18.3.18
-        version: 18.3.21
+        version: 18.3.22
       '@types/react-dom':
         specifier: ^18.3.5
-        version: 18.3.7(@types/react@18.3.21)
+        version: 18.3.7(@types/react@18.3.22)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.15.21)
@@ -2020,8 +2020,8 @@ packages:
     peerDependencies:
       '@types/react': ^18.0.0
 
-  '@types/react@18.3.21':
-    resolution: {integrity: sha512-gXLBtmlcRJeT09/sI4PxVwyrku6SaNUj/6cMubjE6T6XdY1fDmBL7r0nX0jbSZPU/Xr0KuwLLZh6aOYY5d91Xw==}
+  '@types/react@18.3.22':
+    resolution: {integrity: sha512-vUhG0YmQZ7kL/tmKLrD3g5zXbXXreZXB3pmROW8bg3CnLnpjkRVwUlLne7Ufa2r9yJ8+/6B73RzhAek5TBKh2Q==}
 
   '@types/send@0.17.4':
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -7240,11 +7240,11 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@18.3.7(@types/react@18.3.21)':
+  '@types/react-dom@18.3.7(@types/react@18.3.22)':
     dependencies:
-      '@types/react': 18.3.21
+      '@types/react': 18.3.22
 
-  '@types/react@18.3.21':
+  '@types/react@18.3.22':
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
