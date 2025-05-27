@@ -11712,7 +11712,7 @@ snapshots:
   vite-node@1.6.1(@types/node@22.15.23):
     dependencies:
       cac: 6.7.14
-      debug: 4.4.0
+      debug: 4.4.1
       pathe: 1.1.2
       picocolors: 1.1.1
       vite: 5.4.19(@types/node@22.15.23)
