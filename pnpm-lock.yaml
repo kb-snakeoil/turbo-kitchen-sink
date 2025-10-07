@@ -56,8 +56,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/logger
       body-parser:
-        specifier: ^1.20.3
-        version: 1.20.3
+        specifier: ^2.0.0
+        version: 2.2.0
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -7944,7 +7944,7 @@ snapshots:
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
-      debug: 4.4.0
+      debug: 4.4.1
       http-errors: 2.0.0
       iconv-lite: 0.6.3
       on-finished: 2.4.1
