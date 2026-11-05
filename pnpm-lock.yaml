@@ -60,7 +60,7 @@ importers:
         version: 1.20.9
       cors:
         specifier: ^2.8.5
-        version: 2.8.5
+        version: 2.8.6
       express:
         specifier: ^5.0.1
         version: 5.3.0
@@ -434,8 +434,8 @@ packages:
     resolution: {integrity: sha512-brcMGQaVzIeUb+6/bs1Av0f8YuNNjKY2JyvfRCsFuFsdKccEQ5Ges2y74D74NZ1Rz8lKJ9ksJkfqwQFJ/iNEyQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-string-parser@7.29.11':
-    resolution: {integrity: sha512-snZbO7MEDOof+hvNa97EjEY7qD7h2kwvQr5AJC3ZhQudKW5dnej6k3kP9NQV88hJwaS8vDqRLFo9rivLEhle2g==}
+  '@babel/helper-string-parser@7.29.13':
+    resolution: {integrity: sha512-fWegr+WsEsiMVW4KUNdIIzzMTZSzNiqhy0//6+2MRi2d5NFNsL/AYwBQW8eBnRbTBVRnDVzjaJEUqKaCWjMMdQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-string-parser@7.29.7':
@@ -458,8 +458,8 @@ packages:
     resolution: {integrity: sha512-1k2lAGRMfHTcwuNYcCNUmaUffmQv8KWMfh2iJUUeRlwlwH4FdNG7mfPI10NPfLHJFThE4Tyr4mv7kTNZOiPuBg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.29.12':
-    resolution: {integrity: sha512-WJ7JBp/Q4+z/ImydtI7jS6NVco5++632ExBemSX+Ysb+G1lCwQ5BVo3SY+jGGOcZXI4ZccbZSUSJLNBW6eEpJg==}
+  '@babel/parser@7.29.13':
+    resolution: {integrity: sha512-fJM50YYjlTiBhgdkGmC1tBpv+FMAyo4annf2X6Aks+0yRlaiVkYW/3f07xAfVVkYIoZ9fFZp+mEThUFnuybhkQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2801,8 +2801,8 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cors@2.8.5:
-    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+  cors@2.8.6:
+    resolution: {integrity: sha512-tJtZBBHA6vjIAaF6EnIaq6laBBP9aq/Y3ouVJjEfoHbRBcHBAHYcMh/w8LDrk2PvIMMq8gmopa5D4V8RmbrxGw==}
     engines: {node: '>= 0.10'}
 
   create-jest@29.7.0:
@@ -6139,7 +6139,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-string-parser@7.29.11':
+  '@babel/helper-string-parser@7.29.13':
     optional: true
 
   '@babel/helper-string-parser@7.29.7': {}
@@ -6158,7 +6158,7 @@ snapshots:
       '@babel/template': 7.29.7
       '@babel/types': 7.29.7
 
-  '@babel/parser@7.29.12':
+  '@babel/parser@7.29.13':
     dependencies:
       '@babel/types': 7.29.11
     optional: true
@@ -6330,7 +6330,7 @@ snapshots:
 
   '@babel/types@7.29.11':
     dependencies:
-      '@babel/helper-string-parser': 7.29.11
+      '@babel/helper-string-parser': 7.29.13
       '@babel/helper-validator-identifier': 7.29.7
     optional: true
 
@@ -7835,7 +7835,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.25':
     dependencies:
-      '@babel/parser': 7.29.12
+      '@babel/parser': 7.29.13
       '@vue/shared': 3.5.25
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -7850,7 +7850,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.25':
     dependencies:
-      '@babel/parser': 7.29.12
+      '@babel/parser': 7.29.13
       '@vue/compiler-core': 3.5.25
       '@vue/compiler-dom': 3.5.25
       '@vue/compiler-ssr': 3.5.25
@@ -8417,7 +8417,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cors@2.8.5:
+  cors@2.8.6:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
